@@ -10,6 +10,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import sys
 import re
+
 def segs2flags(seg_start, seg_end, seg_label, win_size):
     '''
     This function converts segment endpoints and respective segment
