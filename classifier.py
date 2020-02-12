@@ -33,7 +33,7 @@ def FileClassification(input_file, model_name, model_type, gt = False, gt_file="
 
     # Load classifier with load_model:
     [classifier, MEAN, STD, class_names, mt_win, mt_step, st_win, st_step,
-     compute_beat] = load_model(model_name)
+     compute_beat] = aT.load_model(model_name)
 
     # Using audioBasicIO from puAudioAnalysis, the input audio stream is loaded
     [fs, x] = audioBasicIO.readAudioFile(input_file)
@@ -142,41 +142,6 @@ def FileClassification(input_file, model_name, model_type, gt = False, gt_file="
     else:
         return (flags_ind, class_names, acc, cm)
 
-
-def load_model(model_name):
-    '''
-    This function loads a pre-trained model.
-    It is based on pyAudioAnalysis load_model from audioTrainTest
-    ARGMUMENTS:
-        - model_name:     the path of the model to be loaded
-    '''
-
-    try:
-        fo = open(model_name + "MEANS", "rb")
-    except IOerror:
-        print("Load SVM model: Didn't find file")
-        return
-    try:
-        MEAN = cPickle.load(fo)
-        STD = cPickle.load(fo)
-        classNames = cPickle.load(fo)
-        mt_win = cPickle.load(fo)
-        mt_step = cPickle.load(fo)
-        st_win = cPickle.load(fo)
-        st_step = cPickle.load(fo)
-        compute_beat = cPickle.load(fo)
-
-    except:
-        fo.close()
-    fo.close()
-
-    MEAN = numpy.array(MEAN)
-    STD = numpy.array(STD)
-
-    with open(model_name, 'rb') as fid:
-        SVM = cPickle.load(fid)
-
-    return (SVM, MEAN, STD, classNames, mt_win, mt_step, st_win, st_step, compute_beat)
 
 
 def plotSegmentationResults(flags_ind, flags_ind_gt, class_names, mt_step, ONLY_EVALUATE=False):
