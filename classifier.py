@@ -1,4 +1,3 @@
-import pickle as cPickle
 from pyAudioAnalysis import MidTermFeatures as mF
 from pyAudioAnalysis import audioTrainTest as aT
 from pyAudioAnalysis import audioBasicIO
@@ -6,22 +5,13 @@ from pyAudioAnalysis import audioSegmentation as aS
 import numpy
 import os
 import sys
-import matplotlib.pyplot as plt
 
 
-def FileClassification(input_file, model_name, model_type, gt = False, gt_file=""):
+def FileClassification(input_file, model_name, model_type, gt=False,
+                       gt_file=""):
     '''
-    This function opens the input file with audioBasicIO (pyAudioAnalysis) and loads the pre-trained models.
-    Using audioFeatureExtraction (pyAudioAnalysis), the audio features are extracted and the pre-trained classifiers classify
-    the segments of the audio stream. The segment classifications are plotted.
-    FileClassification has the same functionality with pyAudioAnalysis mtFileClassification:
-
-    ARGUMENTS:
-        - input_file:       path of the input WAV file
-        - model_name:       name of the classification model
-        - model_type:       svm or knn depending on the classifier type
-        - confidence:       the Probability confidence, above which the classifier's predictions are accepted.
-                            In other case, the 'None technique' is assigned to the segment
+    TODO: This function needs to be refactored according to the code in
+    audioSegmentation.mid_term_file_classification()
     '''
 
     if not os.path.isfile(model_name):
@@ -140,16 +130,16 @@ def FileClassification(input_file, model_name, model_type, gt = False, gt_file="
         return (flags_ind, class_names, acc, cm)
 
 
-
 def main():
     modelpath = sys.argv[1]  # the path where the models are stored
-    filepath = sys.argv[2]  # the path to the recording
+    filepath = sys.argv[2]   # the path to the recording
     model_name = 'svm_rbf'
     if len(sys.argv) == 4:
         ground_truth_path = sys.argv[3]
         if os.path.isfile(ground_truth_path):
             gt = True
-            FileClassification(filepath, modelpath, model_name, gt, ground_truth_path)
+            FileClassification(filepath, modelpath, model_name, gt,
+                               ground_truth_path)
     else:
         gt = False
         FileClassification(filepath, modelpath, model_name, gt, '')
