@@ -42,7 +42,7 @@ def FileClassification(input_file, model_name, model_type, gt=False,
         cur_fv = (mt_feats[:, i] - MEAN) / STD
         [res, P] = aT.classifier_wrapper(classifier, model_type, cur_fv)
         if res == 0.0:
-            if numpy.max(P) > 0.3:
+            if numpy.max(P) > 0.5:
                 flags_ind.append(res)
                 flags.append(class_names[int(res)])  # update class label matrix
                 Ps.append(numpy.max(P))  # update probability matrix
@@ -51,7 +51,7 @@ def FileClassification(input_file, model_name, model_type, gt=False,
                 flags.append('None')
                 Ps.append(-1)
         if res == 1.0:
-            if numpy.max(P) > 0.3:
+            if numpy.max(P) > 0.9:
                 flags_ind.append(res)
                 flags.append(class_names[int(res)])  # update class label matrix
                 Ps.append(numpy.max(P))  # update probability matrix
@@ -69,7 +69,7 @@ def FileClassification(input_file, model_name, model_type, gt=False,
                 flags.append('None')
                 Ps.append(-1)
         if res == 3.0:
-            if numpy.max(P) > 0.5:
+            if numpy.max(P) > 0.3:
                 flags_ind.append(res)
                 flags.append(class_names[int(res)])  # update class label matrix
                 Ps.append(numpy.max(P))  # update probability matrix
@@ -78,7 +78,7 @@ def FileClassification(input_file, model_name, model_type, gt=False,
                 flags.append('None')
                 Ps.append(-1)
         if res == 4.0:
-            if numpy.max(P) > 0.9:
+            if numpy.max(P) > 0.3:
                 flags_ind.append(res)
                 flags.append(class_names[int(res)])  # update class label matrix
                 Ps.append(numpy.max(P))  # update probability matrix
