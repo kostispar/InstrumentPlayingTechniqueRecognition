@@ -32,7 +32,7 @@ if __name__ == '__main__':
     st_win = args.frame_window
     st_step = st_win / 2.0
 
-    model_name = "{0:s}_{1:s}_{2:.3f}_{2:.3f}.model".format("model",
+    model_name = "{0:s}_{1:s}_{2:.3f}_{3:.3f}.model".format("model",
                                                             classifier_type,
                                                             mt_win,
                                                             st_win)
